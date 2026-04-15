@@ -37,14 +37,29 @@
             </div>
 
             <div class="formItem">
-                <label for="tipo">Tipo produto:</label>
-                <select id="tipo" name="tipo" required>
-                    <option value="1">Tipo 1 (isento de imposto)</option>
-                    <option value="2">Tipo 2 (8% de imposto)</option>
-                    <option value="3">Tipo 3 (10% de imposto)</option>
-                    <option value="4">Tipo 4 (12% de imposto)</option>
-                    <option value="5">Tipo 5 (17% de imposto)</option>
-                </select>
+                <label>Tipo produto:</label>
+                <div class="radioGroup">
+                    <div>
+                        <input type="radio" id="tipo1" name="tipo" value="1" required>
+                        <label for="tipo1">Tipo 1 (isento de imposto)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="tipo2" name="tipo" value="2">
+                        <label for="tipo2">Tipo 2 (8% de imposto)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="tipo3" name="tipo" value="3">
+                        <label for="tipo3">Tipo 3 (10% de imposto)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="tipo4" name="tipo" value="4">
+                        <label for="tipo4">Tipo 4 (12% de imposto)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="tipo5" name="tipo" value="5">
+                        <label for="tipo5">Tipo 5 (17% de imposto)</label>
+                    </div>
+                </div>
             </div>
 
             <div class="formItem">

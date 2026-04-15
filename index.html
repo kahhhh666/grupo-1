@@ -14,58 +14,64 @@
 
         <form id="formVeiculo">
 
-           
-            <div>
-                <label>Modelo</label>
-                <input type="text" id="modelo" required>
-            </div>
+         
+            <input type="text" id="modelo" placeholder="Modelo" required>
 
-            <div>
-                <label>Marca</label>
-                <input type="text" id="marca" required>
-            </div>
+       
+            <input type="text" id="marca" placeholder="Marca" required>
 
-            <div>
-                <label>Placa</label>
-                <input type="text" id="placa" required>
-            </div>
-
-          
-            <div>
-                <label>Ano de Fabricação</label>
-                <input type="number" id="ano" required>
-            </div>
-
-            <div>
-                <label>Valor do Veículo</label>
-                <input type="number" id="valor" required>
-            </div>
+            <input type="text" id="placa" placeholder="Placa" required>
 
          
-            <div>
-                <label>Tipo de Combustível:</label>
+            <input type="date" id="ano" placeholder="Ano de fabricação" required>
 
-                <div class="radio-group">
-                    <label><input type="radio" name="combustivel" value="gasolina" required> Gasolina</label>
-                    <label><input type="radio" name="combustivel" value="etanol"> Etanol</label>
-                    <label><input type="radio" name="combustivel" value="bicombustivel"> Bicombustível</label>
-                    <label><input type="radio" name="combustivel" value="hibrido"> Híbrido</label>
-                    <label><input type="radio" name="combustivel" value="eletrico"> Elétrico</label>
-                </div>
+            <input type="text" name="cor" id="cor" placeholder="Cor do veículo" required>
+
+       
+            <input type="number" id="valor" placeholder="Valor do veículo" required>
+
+           
+            <div class="radio-group">
+
+                <label>
+                    <input type="radio" name="combustivel" value="gasolina" required>
+                    Gasolina
+                </label>
+
+                <label>
+                    <input type="radio" name="combustivel" value="etanol"required>
+                    Etanol
+                </label>
+
+                <label>
+                    <input type="radio" name="combustivel" value="bicombustivel" required>
+                    Bicombustível
+                </label>
+
+                <label>
+                    <input type="radio" name="combustivel" value="hibrido" required>
+                    Híbrido
+                </label>
+
+                <label>
+                    <input type="radio" name="combustivel" value="eletrico" required>
+                    Elétrico
+                </label>
             </div>
 
-   
-            <button type="submit">Adicionar Veículo</button>
+        
+            <button type="submit">Adicionar</button>
 
         </form>
     </div>
 
-        <!-- LISTA -->
-    <div class="lista" id="listaVeiculos"></div>
+    <!-- LISTA -->
+    <div class="lista" id="listaVeiculos">
+        <!-- JS vai inserir aqui -->   
+    </div>
 
 </div>
 
 </body>
-
-<script src="js/script.js"></script>
+<script src="Js/script.js"></script>
 </html>

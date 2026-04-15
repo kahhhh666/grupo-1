@@ -55,4 +55,30 @@ function adicionarVeiculo(){
         eletrico: 0.01
     };
 
+    // calculo do seguro
+    const seguro = valor * 0.1;
+
+    // calculo da idade do carro
+    const anoAtual = new Date().getFullYear();
+    const idade_carro = anoAtual - ano;
+
+    let ipva = 0;
+    let ipvaTexto = "";
+
+    // cálculo do IPVA
+    if (idade_carro >= 20) {
+        ipvaTexto = "Isento";
+        item.classList.add("isento");
+    } else {
+        const taxa = taxas[combustivel] || 0;
+        ipva = valor * taxa;
+
+        ipvaTexto = ipva.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
+
+    const total = seguro + ipva;
+
 }

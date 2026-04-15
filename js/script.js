@@ -39,4 +39,20 @@ function adicionarVeiculo(){
     const cor = document.getElementById("cor").value;
 
     const combustivel = document.querySelector('input[name="combustivel"]:checked')?.value;
+
+    // segurança extra
+    if (!combustivel) {
+        alert("Selecione um combustível!");
+        return;
+    }
+
+    // taxas dos combustiveis
+    const taxas = {
+        gasolina: 0.04,
+        etanol: 0.03,
+        bicombustivel: 0.035,
+        hibrido: 0.02,
+        eletrico: 0.01
+    };
+
 }

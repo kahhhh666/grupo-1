@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula git/gitHub</title>
-
+    <title>Cadastro de Veículos</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <div id="div_geral">
-        <h1>Página inicial</h1>
 
-        <ul>
-            <li>Item 01</li>
-            <li>Item 02</li>
-            <li>Item 03</li>
-        </ul>
+<div class="container">
 
-        <h1>Inserção de H1</h1>
-        <p>Inserção de parágrafo</p>
+    <div class="card">
+        <h1>Cadastro de Veículos</h1>
+
+        <form id="formVeiculo">
+
+           
+            <div>
+                <label>Modelo</label>
+                <input type="text" id="modelo" required>
+            </div>
+
+            <div>
+                <label>Marca</label>
+                <input type="text" id="marca" required>
+            </div>
+
+            <div>
+                <label>Placa</label>
+                <input type="text" id="placa" required>
+            </div>
+
+          
+            <div>
+                <label>Ano de Fabricação</label>
+                <input type="number" id="ano" required>
+            </div>
+
+            <div>
+                <label>Valor do Veículo</label>
+                <input type="number" id="valor" required>
+            </div>
+
+         
+            <div>
+                <label>Tipo de Combustível:</label>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="combustivel" value="gasolina" required> Gasolina</label>
+                    <label><input type="radio" name="combustivel" value="etanol"> Etanol</label>
+                    <label><input type="radio" name="combustivel" value="bicombustivel"> Bicombustível</label>
+                    <label><input type="radio" name="combustivel" value="hibrido"> Híbrido</label>
+                    <label><input type="radio" name="combustivel" value="eletrico"> Elétrico</label>
+                </div>
+            </div>
+
+   
+            <button type="submit">Adicionar Veículo</button>
+
+        </form>
     </div>
-</body>
 
+
+</div>
+
+</body>
 </html>

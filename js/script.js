@@ -81,4 +81,44 @@ function adicionarVeiculo(){
 
     const total = seguro + ipva;
 
+    // criando item na tela
+    item.innerHTML = `
+        <hr>
+
+        <p><strong>Placa:</strong> ${placa}</p>
+        <p><strong>Modelo:</strong> ${modelo}</p>
+        <p><strong>Marca:</strong> ${marca}</p>
+        <p><strong>Idade do Veículo:</strong> ${idade_carro}</p>
+        <p><strong>Cor:</strong> ${cor}</p>
+
+        <p><strong>Seguro:</strong> ${seguro.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        })}</p>
+
+        <p><strong>IPVA:</strong> ${ipvaTexto}</p>
+
+        <p><strong>Total:</strong> ${total.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        })}</p>
+
+        <button class="remover">Excluir</button>
+    `;
+
+    // Criação do botão excluir
+    const btnExcluir = item.querySelector(".remover");
+
+    btnExcluir.addEventListener("click", function () {
+        if (confirm("Tem certeza que deseja excluir esse veículo?")) {
+            item.remove();
+        }
+    });
+
+    // adiciona na lista
+    lista.appendChild(item);
+
+    // limpa formulário
+    form.reset();
+
 }

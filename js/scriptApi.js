@@ -1,6 +1,6 @@
-const endPoint = 'https://localhost:7060/api/Veiculo';
+const endPoint = 'https://localhost:7043/api/Veiculo';
 
-
+//salvar os dados do user no banco de dados
 const salvarDados = async (objVeiculos) => {
 
     console.log(objVeiculos)
@@ -26,7 +26,7 @@ const salvarDados = async (objVeiculos) => {
         console.error("ERRO AO CADASTRAR: ", error);
     }
 }
-
+//Vai no banco de dados e traz os dados
 const buscarVeiculos = async () => {
     try {
         const resposta = await fetch(endPoint, {
@@ -64,7 +64,7 @@ const buscarVeiculoPorId = async (id) => {
 
 //Função atualizar 
 const alterarVeiculoApi = async (objVeiculoAtt) => {
-    const endPoint = `https://localhost:7060/api/Veiculo/${objVeiculoAtt.id}`;
+    const endPoint = `https://localhost:7043/api/Veiculo/${objVeiculoAtt.id}`;
 
     try {
         const resposta = await fetch(
@@ -83,11 +83,11 @@ const alterarVeiculoApi = async (objVeiculoAtt) => {
         return dados
 
     } catch (error) {
-        console.log("ERRO AO CADASTRAR ", erro)
+        console.log("ERRO AO CADASTRAR ", error)
     }
 
 }
-
+//Funcão para apagar objetos
 const excluirVeiculoApi = async (id) => {
     try {
         const resposta = await fetch(`${endPoint}/${id}`, {

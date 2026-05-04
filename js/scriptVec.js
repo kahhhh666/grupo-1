@@ -47,10 +47,10 @@ const renderizarLista = async () => {
             item.classList.add("isento");
         } else {
             // Limpa os acentos do banco para bater com as chaves do objeto 'taxasCombustivel'
-            const tipoNormalizado = v.tipoCombustivel 
-                ? v.tipoCombustivel.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
+            const tipoNormalizado = v.tipoCombustivel
+                ? v.tipoCombustivel.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                 : "";
-                
+
             const taxa = taxasCombustivel[tipoNormalizado] || 0;
             ipva = valorVeiculo * taxa;
             ipvaTexto = ipva.toLocaleString("pt-BR", {
@@ -98,39 +98,47 @@ const renderizarLista = async () => {
 renderizarLista();
 
 // Cadastrar veículo
-btnEnviar.addEventListener("click", async (evt) => {
-    evt.preventDefault();
+const cadastroveiculo = async (evt) => {
+    evt.preventDefault(); // Agora evt está sendo recebido como parâmetro
 
-    // Captura os dados do formulário no momento do clique
-    const dadosForm = new FormData(formVec);
-    const dataInput = dadosForm.get('ano');
+    const dadosForm = new FormData(formVec); // Alterado de formVec para dadosForm para não sobrescrever o elemento DOM
 
-    if (!dataInput) {
-        alert("Por favor, preencha a data de fabricação.");
-        return;
-    }
+    const idSalvo = sessionStorage.getItem('objVeiculoId');
+    const id_veiculo = idSalvo === null ? 0 : parseInt(idSalvo); // Convertido para int por segurança
 
-    const anoVeiculo = new Date(dataInput);
+    // Evita o erro de anoVeiculo is not defined
+    const anoInput = dadosForm.get('ano');
+    const anoCalc = anoInput ? new Date(anoInput).getFullYear() : new Date().getFullYear();
 
     const objVeiculos = {
         marca: dadosForm.get('marca'),
         modelo: dadosForm.get('modelo'),
         placa: dadosForm.get('placa'),
-        anoFabricacao: anoVeiculo.getFullYear(),
+        cor: dadosForm.get('cor'),
+        anoFabricacao: anoCalc,
         valorMercado: parseFloat(dadosForm.get('valor')),
         tipoCombustivel: dadosForm.get('combustivel')
     };
 
-    // Validação básica antes de enviar
-    if (!objVeiculos.tipoCombustivel) {
-        alert("Selecione um tipo de combustível!");
-        return;
+    if (id_veiculo === 0) {
+        // Estava chamando a si mesma criando um loop infinito. Agora chama salvarDados.
+        await salvarDados(objVeiculos);
+    } else {
+        if (confirm(`Deseja alterar o veículo?`)) { // Ajustado texto (estava "Pessoa")
+            objVeiculos.id = id_veiculo; // Precisamos passar o ID no objeto para a API saber quem editar
+            await alterarVeiculo(objVeiculos);
+        }
+        // Limpa o sessionStorage para voltar ao modo de "Cadastro" caso o usuário submeta novamente
+        sessionStorage.removeItem('objVeiculoId');
     }
 
-    await salvarDados(objVeiculos);
     formVec.reset();
-    renderizarLista(); // Atualiza a lista após cadastrar
-});
+    renderizarLista(); // Atualiza a lista após cadastrar/alterar
+};
+
+// Ao invés de executar cadastroveiculo() direto no carregamento da tela, 
+// nós adicionamos ela como um evento atrelado ao envio (submit) do formulário.
+formVec.addEventListener("submit", cadastroveiculo);
 
 // Envia os dados para a API de alteração
 const alterarVeiculo = async (objVeiculoAtt) => {
@@ -140,24 +148,27 @@ const alterarVeiculo = async (objVeiculoAtt) => {
 
 // Preenche o formulário com os dados do veículo selecionado
 const carregaForm = (objVeiculoAtt) => {
+    // SALVA O ID: Fundamental para a função de cadastro saber que é uma edição
+    sessionStorage.setItem('objVeiculoId', objVeiculoAtt.id);
+
     document.querySelector('#placa').value = objVeiculoAtt.placa || '';
     document.querySelector('#marca').value = objVeiculoAtt.marca || '';
     document.querySelector('#modelo').value = objVeiculoAtt.modelo || '';
-    
+
     // Converte o ano de fabricação para o formato de input de data (YYYY-MM-DD)
     if (objVeiculoAtt.anoFabricacao) {
         document.querySelector('#ano').value = `${objVeiculoAtt.anoFabricacao}-01-01`;
     }
-    
+
     // Verifica se o campo cor existe no DOM antes de preencher
     const inputCor = document.querySelector('#cor');
     if (inputCor) inputCor.value = objVeiculoAtt.cor || '';
-    
+
     document.querySelector('#valor').value = objVeiculoAtt.valorMercado || '';
 
-   
+
     if (objVeiculoAtt.tipoCombustivel) {
-        
+
         const tipoNormalizado = objVeiculoAtt.tipoCombustivel
             .toLowerCase()
             .normalize("NFD")
